@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../buttons/Button'
 
 interface Cliente {
     id: number;
@@ -15,35 +16,42 @@ interface ClientListProps {
 
 const ClientList: React.FC<ClientListProps> = ({ clientes }) => {
     return (
-        <div>
+        <div className='flex-col'>
             {clientes.map(cliente => (
-                <div key={cliente.id}>
-                    <p>
-                        <span>Id:</span> {cliente.id}
+                <div key={cliente.id} className='flex-col border-b border-black p-5'>
+                    <div className='flex gap-5 pb-5 text-lg'>
+
+                    <p className=''>
+                        <span className='font-bold'>Id:</span> {cliente.id}
                     </p>
                     <p>
-                        <span>Nome:</span> {cliente.nome}
+                        <span className='font-bold'>Nome:</span> {cliente.nome}
                     </p>
                     <p>
-                        <span>Email:</span> {cliente.email}
+                        <span className='font-bold'>Email:</span> {cliente.email}
                     </p>
                     <p>
-                        <span>Telefone:</span> {cliente.telefone}
+                        <span className='font-bold'>Telefone:</span> {cliente.telefone}
                     </p>
                     <p>
-                        <span>Coordenada X:</span> {cliente.coordenada_x}
+                        <span className='font-bold'>Coordenada X:</span> {cliente.coordenada_x}
                     </p>
                     <p>
-                        <span>Coordenada Y:</span> {cliente.coordenada_y}
+                        <span className='font-bold'>Coordenada Y:</span> {cliente.coordenada_y}
                     </p>
-                    <div>
-                        <button>Atualizar</button>
-                        <button>Excluir</button>
+                    </div>
+                    <div className=' flex justify-start'>
+                        <Button
+                            text='Atualizar'></Button>
+                        <Button
+                            text='Excluir'></Button>
                     </div>
                 </div>
+                
             ))}
-            <div>
-                <button>Fechar</button>
+            <div className='flex justify-center'>
+                <Button
+                    text='Fechar'></Button>
             </div>
         </div>
     );
