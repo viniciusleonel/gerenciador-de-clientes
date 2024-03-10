@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Button from '../buttons/Button'
 
 interface DropdownButtonProps {
     text: string;
@@ -34,7 +35,7 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({ text, options }) => {
 
     return (
         <div className="dropdown" ref={dropdownRef}>
-            <button className="dropdown-toggle bg-color-aqua px-10 py-2 mx-6 rounded-lg font-bold" onClick={toggleDropdown}>
+            <button className="dropdown-toggle bg-color-aqua px-10 py-2 mx-6 rounded-lg font-bold border hover:border-color-aqua hover:bg-custom-background hover:text-color-aqua" onClick={toggleDropdown}>
                 {text}
             </button>
             {isOpen && (

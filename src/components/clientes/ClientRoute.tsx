@@ -10,11 +10,11 @@ interface Cliente {
     coordenada_y: number;
 }
 
-interface ClientListProps {
+interface ClientRouteProps {
     clientes: Cliente[];
 }
 
-const ClientList: React.FC<ClientListProps> = ({ clientes }) => {
+const ClientRoute: React.FC<ClientRouteProps> = ({ clientes }) => {
     return (
         <div className='flex-col'>
             {clientes.map(cliente => (
@@ -40,12 +40,6 @@ const ClientList: React.FC<ClientListProps> = ({ clientes }) => {
                         <span className='font-bold'>Coordenada Y:</span> {cliente.coordenada_y}
                     </p>
                     </div>
-                    <div className='flex justify-start'>
-                        <Button
-                            text='Atualizar'></Button>
-                        <Button
-                            text='Excluir'></Button>
-                    </div>
                 </div>
                 
             ))}
@@ -57,4 +51,5 @@ const ClientList: React.FC<ClientListProps> = ({ clientes }) => {
     );
 };
 
-export default ClientList;
+export default ClientRoute;
+
