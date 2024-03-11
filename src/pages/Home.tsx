@@ -12,7 +12,7 @@ export function Home() {
     const [exibirFormulario, setExibirFormulario] = useState(false);
     const [distancia, setDistancia] = useState(0);
 
-    const cadastrarCliente = async () => {
+    const cadastrarCliente = async (clientes: any) => {
         try {
             await fetch('http://localhost:3001/clientes', {
                 method: 'POST',
@@ -40,6 +40,8 @@ export function Home() {
             console.error('Erro ao buscar clientes:', error);
         }
     };
+
+    
 
     const exibirRotaFunc = async () => {
         try {
@@ -88,7 +90,7 @@ export function Home() {
                 <h1 className="text-3xl font-bold text-color-aqua p-6">Gerenciador de Clientes</h1>
                 <Button text="Buscar" />
             </div>
-            {exibirLista && <ClientList clientes={clientes} fecharLista={fecharLista} />}
+            {exibirLista && <ClientList clientes={clientes} fecharLista={fecharLista} listarClientes={listarClientes} />}
             {exibirRota && <ClientRoute clientes={clientes} fecharRota={fecharRota} distancia={distancia} />}
             {exibirFormulario && <ClientForm cadastrarCliente={cadastrarCliente} fecharFormulario={fecharFormulario} />}
         </div>

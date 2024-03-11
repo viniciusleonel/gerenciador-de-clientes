@@ -11,11 +11,24 @@ interface Cliente {
 }
 
 interface ClientListProps {
-    clientes: Cliente[];
-    fecharLista: () => void;
+    clientes: Cliente[]
+    fecharLista: () => void
+    listarClientes: () => void
 }
 
-const ClientList: React.FC<ClientListProps> = ({ clientes, fecharLista }) => {
+const ClientList: React.FC<ClientListProps> = ({ clientes, fecharLista, listarClientes }) => {
+
+    const excluirCliente = async (id: number) => {
+        try {
+            await fetch(`http://localhost:3001/clientes/${id}`, {
+                method: 'DELETE',
+            });
+            listarClientes();
+        } catch (error) {
+            console.error('Erro ao excluir cliente:', error);
+        }
+    };
+
     return (
         <div className='flex-col'>
             {clientes.map(cliente => (
@@ -45,7 +58,8 @@ const ClientList: React.FC<ClientListProps> = ({ clientes, fecharLista }) => {
                         <Button
                             text='Atualizar'></Button>
                         <Button
-                            text='Excluir'></Button>
+                            text='Excluir'
+                            onClick={() => excluirCliente(cliente.id)}></Button>
                     </div>
                 </div>
                 

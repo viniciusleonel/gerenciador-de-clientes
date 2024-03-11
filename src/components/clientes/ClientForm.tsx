@@ -27,7 +27,7 @@ const ClienteForm: React.FC<ClienteFormProps> = ({ cadastrarCliente, clienteAtua
         setActive(!active);
     };
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const cadastrar = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const novoCliente: Cliente = {
@@ -59,7 +59,7 @@ const ClienteForm: React.FC<ClienteFormProps> = ({ cadastrarCliente, clienteAtua
     };
 
     return (
-        <form onSubmit={handleSubmit} className='flex flex-col m-3 p-3 w-[30rem]'>
+        <form onSubmit={cadastrar} className='flex flex-col m-3 p-3 w-[30rem]'>
             <h2 className='font-bold text-3xl pb-5 ms-6 text-start'>Cadastrar Cliente</h2>
             <div className='flex flex-col ms-6'>
                 <label className='font-bold text-lg' htmlFor="nome">Nome:</label>
@@ -81,9 +81,11 @@ const ClienteForm: React.FC<ClienteFormProps> = ({ cadastrarCliente, clienteAtua
                 <Button
                     text='Fechar'
                     onClick={fecharFormulario}
+                    type="button"
                 />
                 <Button
                     text='Cadastrar'
+                    type="submit"
                 />
             </div>
         </form>
