@@ -13,9 +13,10 @@ interface Cliente {
 interface ClientRouteProps {
     clientes: Cliente[];
     distancia: number;
+    fecharRota: () => void
 }
 
-const ClientRoute: React.FC<ClientRouteProps> = ({ clientes, distancia }) => {
+const ClientRoute: React.FC<ClientRouteProps> = ({ clientes, distancia, fecharRota }) => {
     return (
         <div className='flex-col'>
             <div className="flex-row border-b border-black p-5 text-lg text-center">
@@ -47,7 +48,10 @@ const ClientRoute: React.FC<ClientRouteProps> = ({ clientes, distancia }) => {
                 </div>
             ))}
             <div className='flex justify-center my-5'>
-                <Button text='Fechar' />
+                <Button 
+                    text='Fechar'
+                    onClick={fecharRota}
+                />
             </div>
         </div>
     );

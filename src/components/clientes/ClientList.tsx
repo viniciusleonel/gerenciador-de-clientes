@@ -12,9 +12,10 @@ interface Cliente {
 
 interface ClientListProps {
     clientes: Cliente[];
+    fecharLista: () => void;
 }
 
-const ClientList: React.FC<ClientListProps> = ({ clientes }) => {
+const ClientList: React.FC<ClientListProps> = ({ clientes, fecharLista }) => {
     return (
         <div className='flex-col'>
             {clientes.map(cliente => (
@@ -51,7 +52,9 @@ const ClientList: React.FC<ClientListProps> = ({ clientes }) => {
             ))}
             <div className=' flex justify-center my-5'>
                 <Button
-                    text='Fechar'></Button>
+                    text='Fechar'
+                    onClick={fecharLista}
+                ></Button>
             </div>
         </div>
     );

@@ -12,9 +12,10 @@ interface Cliente {
 interface ClienteFormProps {
     cadastrarCliente: (cliente: Cliente) => Promise<void>;
     clienteAtual?: Cliente;
+    fecharFormulario: () => void;
 }
 
-const ClienteForm: React.FC<ClienteFormProps> = ({ cadastrarCliente, clienteAtual }) => {
+const ClienteForm: React.FC<ClienteFormProps> = ({ cadastrarCliente, clienteAtual, fecharFormulario }) => {
     const [nome, setNome] = useState(clienteAtual ? clienteAtual.nome : '');
     const [email, setEmail] = useState(clienteAtual ? clienteAtual.email : '');
     const [telefone, setTelefone] = useState(clienteAtual ? clienteAtual.telefone : '');
@@ -79,6 +80,7 @@ const ClienteForm: React.FC<ClienteFormProps> = ({ cadastrarCliente, clienteAtua
             <div>
                 <Button
                     text='Fechar'
+                    onClick={fecharFormulario}
                 />
                 <Button
                     text='Cadastrar'

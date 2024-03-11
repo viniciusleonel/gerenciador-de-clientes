@@ -39,7 +39,7 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({ text, options }) => {
                 {text}
             </button>
             {isOpen && (
-                <ul className="dropdown-menu bg-custom-background text-color-aqua absolute">
+                <ul className="dropdown-menu bg-custom-background text-color-aqua absolute mt-[1.3rem]">
                     {options.map((option, index) => (
                         <li
                             className="py-5 px-10 m-0 w-full cursor-pointer hover:bg-color-aqua hover:text-custom-background font-bold"
