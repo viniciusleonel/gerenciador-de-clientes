@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Button from '../buttons/Button';
 
 interface Cliente {
     nome: string;
@@ -57,27 +58,31 @@ const ClienteForm: React.FC<ClienteFormProps> = ({ cadastrarCliente, clienteAtua
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h2>Cadastrar Cliente</h2>
-            <div>
-                <label htmlFor="nome">Nome</label>
-                <input id="nome" type="text" placeholder="Nome" required value={nome} onChange={(e) => setNome(e.target.value)} />
+        <form onSubmit={handleSubmit} className='flex flex-col m-3 p-3 w-[30rem]'>
+            <h2 className='font-bold text-3xl pb-5 ms-6 text-start'>Cadastrar Cliente</h2>
+            <div className='flex flex-col ms-6'>
+                <label className='font-bold text-lg' htmlFor="nome">Nome:</label>
+                <input className='pt-1 pb-1 mb-4 w-[20.7rem] border border-black rounded-lg' id="nome" type="text" placeholder="Nome" required value={nome} onChange={(e) => setNome(e.target.value)} />
 
-                <label htmlFor="email">Email</label>
-                <input id="email" type="text" placeholder="Email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+                <label className='font-bold text-lg' htmlFor="email">Email:</label>
+                <input className='pt-1 pb-1 mb-4 w-[20.7rem] border border-black rounded-lg' id="email" type="text" placeholder="Email" required value={email} onChange={(e) => setEmail(e.target.value)} />
 
-                <label htmlFor="telefone">Telefone</label>
-                <input id="telefone" type="text" placeholder="Telefone" required value={telefone} onChange={(e) => setTelefone(e.target.value)} />
+                <label className='font-bold text-lg' htmlFor="telefone">Telefone:</label>
+                <input className='pt-1 pb-1 mb-4 w-[20.7rem] border border-black rounded-lg' id="telefone" type="text" placeholder="Telefone" required value={telefone} onChange={(e) => setTelefone(e.target.value)} />
 
-                <label htmlFor="coordenada_x">Coordenada X</label>
-                <input id="coordenada_x" type="text" placeholder="Coordenada X" required value={coordenada_x} onChange={(e) => setCoordenada_x(e.target.value)} />
+                <label className='font-bold text-lg' htmlFor="coordenada_x">Coordenada X:</label>
+                <input className='pt-1 pb-1 mb-4 w-[20.7rem] border border-black rounded-lg' id="coordenada_x" type="text" placeholder="Coordenada X" required value={coordenada_x} onChange={(e) => setCoordenada_x(e.target.value)} />
 
-                <label htmlFor="coordenada_y">Coordenada Y</label>
-                <input id="coordenada_y" type="text" placeholder="Coordenada Y" required value={coordenada_y} onChange={(e) => setCoordenada_y(e.target.value)} />
+                <label className='font-bold text-lg' htmlFor="coordenada_y">Coordenada Y:</label>
+                <input className='pt-1 pb-1 mb-4 w-[20.7rem] border border-black rounded-lg' id="coordenada_y" type="text" placeholder="Coordenada Y" required value={coordenada_y} onChange={(e) => setCoordenada_y(e.target.value)} />
             </div>
             <div>
-                <button onClick={cancelarSubmit}>Fechar</button>
-                <button type="submit">Cadastrar</button>
+                <Button
+                    text='Fechar'
+                />
+                <Button
+                    text='Cadastrar'
+                />
             </div>
         </form>
     );

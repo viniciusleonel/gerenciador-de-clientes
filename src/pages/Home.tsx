@@ -10,7 +10,7 @@ export function Home() {
     const [exibirLista, setExibirLista] = useState(false); // Estado para controlar a exibição da lista de clientes
     const [exibirRota, setExibirRota] = useState(false); // Estado para controlar a exibição da rota
     const [exibirFormulario, setExibirFormulario] = useState(false); // Estado para controlar a exibição do formulário de cadastro de cliente
-    const [mostrarRota, setListRota] = useState([]);
+    const [distancia, setDistancia] = useState(0); // Estado para armazenar a distância da rota
 
     const cadastrarCliente = async () => {
         try {
@@ -45,7 +45,9 @@ export function Home() {
         try {
             const response = await fetch('http://localhost:3001/calcular-rota');
             const data = await response.json();
-            setListRota(data.rota);
+            const { rota, distancia } = data; // Extrair a distância da resposta da API
+            setClientes(rota);
+            setDistancia(distancia); // Definir a distância no estado
             setExibirRota(true); // Define exibirRota como true ao clicar no botão "Exibir Rota"
             setExibirLista(false); // Garante que exibirLista seja false ao clicar no botão "Exibir Rota"
             setExibirFormulario(false); // Garante que exibirFormulario seja false ao clicar no botão "Exibir Rota"
@@ -75,7 +77,7 @@ export function Home() {
                 <Button text="Buscar" />
             </div>
             {exibirLista && <ClientList clientes={clientes} />} {/* Renderiza a lista de clientes se exibirLista for true */}
-            {exibirRota && <ClientRoute clientes={clientes} />} {/* Renderiza a rota se exibirRota for true */}
+            {exibirRota && <ClientRoute clientes={clientes} distancia={distancia} />} {/* Renderiza a rota se exibirRota for true */}
             {exibirFormulario && <ClientForm cadastrarCliente={cadastrarCliente} />} {/* Renderiza o formulário de cadastro de cliente se exibirFormulario for true */}
         </div>
     );
