@@ -59,36 +59,40 @@ const ClienteForm: React.FC<ClienteFormProps> = ({ cadastrarCliente, clienteAtua
     };
 
     return (
-        <form onSubmit={cadastrar} className='flex flex-col m-3 p-3 w-[30rem]'>
-            <h2 className='font-bold text-3xl pb-5 ms-6 text-start'>Cadastrar Cliente</h2>
-            <div className='flex flex-col ms-6'>
-                <label className='font-bold text-lg' htmlFor="nome">Nome:</label>
-                <input className='pt-1 pb-1 mb-4 w-[20.7rem] border border-black rounded-lg' id="nome" type="text" placeholder="Nome" required value={nome} onChange={(e) => setNome(e.target.value)} />
+        <div className="w-full flex justify-center px-4">
+            <main className="mt-4 w-full md:max-w-2xl">
+                <h2 className='text-4xl ms-6 font-medium'>Cadastrar Cliente</h2>
+                <form onSubmit={cadastrar} className='flex flex-col mt-4'>
+                    <div className='flex flex-col ms-6'>
+                        <label className='font-bold text-lg' htmlFor="nome">Nome:</label>
+                        <input className='w-full mb-2 p-2 rounded border border-black ' id="nome" type="text" placeholder="Nome" required value={nome} onChange={(e) => setNome(e.target.value)} />
 
-                <label className='font-bold text-lg' htmlFor="email">Email:</label>
-                <input className='pt-1 pb-1 mb-4 w-[20.7rem] border border-black rounded-lg' id="email" type="text" placeholder="Email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <label className='font-bold text-lg' htmlFor="email">Email:</label>
+                        <input className='w-full mb-3 p-2 rounded border border-black' id="email" type="text" placeholder="Email" required value={email} onChange={(e) => setEmail(e.target.value)} />
 
-                <label className='font-bold text-lg' htmlFor="telefone">Telefone:</label>
-                <input className='pt-1 pb-1 mb-4 w-[20.7rem] border border-black rounded-lg' id="telefone" type="text" placeholder="Telefone" required value={telefone} onChange={(e) => setTelefone(e.target.value)} />
+                        <label className='font-bold text-lg' htmlFor="telefone">Telefone:</label>
+                        <input className='w-full mb-3 p-2 rounded border border-black' id="telefone" type="text" placeholder="Telefone" required value={telefone} onChange={(e) => setTelefone(e.target.value)} />
 
-                <label className='font-bold text-lg' htmlFor="coordenada_x">Coordenada X:</label>
-                <input className='pt-1 pb-1 mb-4 w-[20.7rem] border border-black rounded-lg' id="coordenada_x" type="text" placeholder="Coordenada X" required value={coordenada_x} onChange={(e) => setCoordenada_x(e.target.value)} />
+                        <label className='font-bold text-lg' htmlFor="coordenada_x">Coordenada X:</label>
+                        <input className='w-full mb-3 p-2 rounded border border-black' id="coordenada_x" type="text" placeholder="Coordenada X" required value={coordenada_x} onChange={(e) => setCoordenada_x(e.target.value)} />
 
-                <label className='font-bold text-lg' htmlFor="coordenada_y">Coordenada Y:</label>
-                <input className='pt-1 pb-1 mb-4 w-[20.7rem] border border-black rounded-lg' id="coordenada_y" type="text" placeholder="Coordenada Y" required value={coordenada_y} onChange={(e) => setCoordenada_y(e.target.value)} />
+                        <label className='font-bold text-lg' htmlFor="coordenada_y">Coordenada Y:</label>
+                        <input className='w-full mb-3 p-2 rounded border border-black' id="coordenada_y" type="text" placeholder="Coordenada Y" required value={coordenada_y} onChange={(e) => setCoordenada_y(e.target.value)} />
+                    </div>
+                    <div>
+                        <Button
+                            text='Fechar'
+                            onClick={fecharFormulario}
+                            type="button"
+                        />
+                        <Button
+                            text='Cadastrar'
+                            type="submit"
+                        />
+                    </div>
+                </form>
+                </main>
             </div>
-            <div>
-                <Button
-                    text='Fechar'
-                    onClick={fecharFormulario}
-                    type="button"
-                />
-                <Button
-                    text='Cadastrar'
-                    type="submit"
-                />
-            </div>
-        </form>
     );
 };
 

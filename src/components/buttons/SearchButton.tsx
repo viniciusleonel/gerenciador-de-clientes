@@ -1,33 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '../buttons/Button'
+import { FiTrash} from 'react-icons/fi'
+import { TfiPencil } from "react-icons/tfi"
 
-interface Cliente {
-    id: number;
-    nome: string;
-    email: string;
-    telefone: string;
-    coordenada_x: number;
-    coordenada_y: number;
+interface SearchButtonProps {
+    fecharTudo: () => void;
+    excluirCliente: (id: any) => void;
+    handleInputChange: any;
+    handleKeyDown: any;
+    cliente: any
 }
 
-interface ClientRouteProps {
-    clientes: Cliente[];
-    distancia: number;
-    fecharRota: () => void
-}
+export default function SearchButton ({fecharTudo, excluirCliente, handleInputChange, handleKeyDown, cliente} : SearchButtonProps) {
 
-const ClientRoute: React.FC<ClientRouteProps> = ({ clientes, distancia, fecharRota }) => {
     return (
-        <div className='w-full flex justify-center px-4 bg-gray-300'>
-            <main className='mt-4 w-full md:max-w-2xl'>
-                <div className='pb-4'>
-                    <h2 className="text-3xl font-semibold">Rota Calculada</h2>
-                    <p className="text-2xl font-semibold">Distância: {distancia.toFixed(2)}</p>
-                </div>
+        <div>
+            <input 
+                className="me-6 ps-2 py-2 rounded-lg border-2 relative border-color-aqua focus:outline-none focus:bg-cyan-100"
+                type="text"
+                onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
+                placeholder="Buscar cliente"
+            />
+
+            {cliente && (
+                <main className='my-10 w-full md:max-w-2xl absolute right-[28%]'>
                 <section className="flex flex-col gap-4 ">
-                    {clientes.map(cliente => (
                         <article 
-                            className="w-full flex bg-white rounded p-2 relative hover:scale-105 duration-300"
+                            className="w-full flex bg-white rounded p-2  hover:scale-105 duration-300"
                             key={cliente.id}
                         >
 
@@ -54,18 +54,26 @@ const ClientRoute: React.FC<ClientRouteProps> = ({ clientes, distancia, fecharRo
                                     <span className='font-bold'>Coordenada Y:</span> {cliente.coordenada_y}
                                 </p>
                             </div>
+
+                            <button className='bg-blue-500 w-7 h-7 flex items-center justify-center rounded-lg absolute right-8 -top-3'>
+                                <TfiPencil size={18} color='#fff' />
+                            </button>
+                            <button 
+                                className='bg-red-500 w-7 h-7 flex items-center justify-center rounded-lg absolute right-0 -top-3 hover:scale-110 duration-300'
+                                onClick={() => excluirCliente(cliente.id)}  
+                            >   <FiTrash size={18} color='#fff' />
+                            </button>
                         </article>
-                    ))}
+                    
                     <div className=' flex justify-center'>
                         <Button
                             text='Fechar'
-                            onClick={fecharRota}
+                            onClick={() => {fecharTudo()}}
                         ></Button>
                     </div>
                 </section>
             </main>
+            )} 
         </div>
-    );
-};
-
-export default ClientRoute;
+    )
+}

@@ -15,8 +15,8 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({ text, options }) => {
     };
 
     const handleOptionClick = (option: { label: string; onClick: () => void }) => {
-        option.onClick(); // Chama a função onClick da opção
-        setIsOpen(false); // Fecha o dropdown após clicar em uma opção
+        option.onClick(); 
+        setIsOpen(false); 
     };
 
     useEffect(() => {
@@ -39,7 +39,7 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({ text, options }) => {
                 {text}
             </button>
             {isOpen && (
-                <ul className="dropdown-menu bg-custom-background text-color-aqua absolute mt-[1.3rem]">
+                <ul className="dropdown-menu bg-custom-background text-color-aqua absolute mt-[1.3rem] z-10">
                     {options.map((option, index) => (
                         <li
                             className="py-5 px-10 m-0 w-full cursor-pointer hover:bg-color-aqua hover:text-custom-background font-bold"
