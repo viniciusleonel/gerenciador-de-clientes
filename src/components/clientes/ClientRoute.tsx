@@ -1,22 +1,14 @@
 import React from 'react';
 import Button from '../buttons/Button'
-
-interface Cliente {
-    id: number;
-    nome: string;
-    email: string;
-    telefone: string;
-    coordenada_x: number;
-    coordenada_y: number;
-}
+import { Cliente } from '../../model/Cliente';
 
 interface ClientRouteProps {
     clientes: Cliente[];
     distancia: number;
-    fecharRota: () => void
+    closeClientesRoute: () => void
 }
 
-const ClientRoute: React.FC<ClientRouteProps> = ({ clientes, distancia, fecharRota }) => {
+const ClientRoute: React.FC<ClientRouteProps> = ({ clientes, distancia, closeClientesRoute }) => {
     return (
         <div className='w-full flex justify-center px-4 bg-gray-300'>
             <main className='mt-4 w-full md:max-w-2xl'>
@@ -59,7 +51,7 @@ const ClientRoute: React.FC<ClientRouteProps> = ({ clientes, distancia, fecharRo
                     <div className=' flex justify-center'>
                         <Button
                             text='Fechar'
-                            onClick={fecharRota}
+                            onClick={closeClientesRoute}
                         ></Button>
                     </div>
                 </section>

@@ -1,21 +1,14 @@
 import React, { useState } from 'react';
 import Button from '../buttons/Button';
-
-interface Cliente {
-    nome: string;
-    email: string;
-    telefone: string;
-    coordenada_x: string;
-    coordenada_y: string;
-}
+import { Cliente } from '../../model/Cliente';
 
 interface ClienteFormProps {
-    cadastrarCliente: (cliente: Cliente) => Promise<void>;
+    createCliente: (cliente: Cliente) => Promise<void>;
     clienteAtual?: Cliente;
-    fecharFormulario: () => void;
+    closeForm: () => void;
 }
 
-const ClienteForm: React.FC<ClienteFormProps> = ({ cadastrarCliente, clienteAtual, fecharFormulario }) => {
+const ClienteForm: React.FC<ClienteFormProps> = ({ createCliente, clienteAtual, closeForm }) => {
     const [nome, setNome] = useState(clienteAtual ? clienteAtual.nome : '');
     const [email, setEmail] = useState(clienteAtual ? clienteAtual.email : '');
     const [telefone, setTelefone] = useState(clienteAtual ? clienteAtual.telefone : '');
@@ -31,6 +24,7 @@ const ClienteForm: React.FC<ClienteFormProps> = ({ cadastrarCliente, clienteAtua
         event.preventDefault();
 
         const novoCliente: Cliente = {
+            id: 0,
             nome: nome,
             email: email,
             telefone: telefone,
@@ -39,7 +33,7 @@ const ClienteForm: React.FC<ClienteFormProps> = ({ cadastrarCliente, clienteAtua
         };
 
         try {
-            await cadastrarCliente(novoCliente);
+            await createCliente(novoCliente);
 
             setNome('');
             setEmail('');
@@ -82,7 +76,7 @@ const ClienteForm: React.FC<ClienteFormProps> = ({ cadastrarCliente, clienteAtua
                     <div>
                         <Button
                             text='Fechar'
-                            onClick={fecharFormulario}
+                            onClick={closeForm}
                             type="button"
                         />
                         <Button

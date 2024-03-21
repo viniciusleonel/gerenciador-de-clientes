@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import Button from '../buttons/Button'
+import { Cliente } from '../../model/Cliente';
 import { FiTrash} from 'react-icons/fi'
 import { TfiPencil } from "react-icons/tfi"
 
 interface SearchButtonProps {
-    fecharTudo: () => void;
-    excluirCliente: (id: any) => void;
+    closeAll: () => void;
+    deleteCliente: (id: any) => void;
     handleInputChange: any;
     handleKeyDown: any;
-    cliente: any
+    cliente: Cliente
 }
 
-export default function SearchButton ({fecharTudo, excluirCliente, handleInputChange, handleKeyDown, cliente} : SearchButtonProps) {
+export default function SearchButton ({closeAll, deleteCliente, handleInputChange, handleKeyDown, cliente} : SearchButtonProps) {
 
     return (
         <div>
@@ -24,7 +25,7 @@ export default function SearchButton ({fecharTudo, excluirCliente, handleInputCh
             />
 
             {cliente && (
-                <main className='my-10 w-full md:max-w-2xl absolute right-[28%]'>
+                <main className='mt-24 w-full md:max-w-2xl absolute right-[28%]'>
                 <section className="flex flex-col gap-4 ">
                         <article 
                             className="w-full flex bg-white rounded p-2  hover:scale-105 duration-300"
@@ -60,7 +61,7 @@ export default function SearchButton ({fecharTudo, excluirCliente, handleInputCh
                             </button>
                             <button 
                                 className='bg-red-500 w-7 h-7 flex items-center justify-center rounded-lg absolute right-0 -top-3 hover:scale-110 duration-300'
-                                onClick={() => excluirCliente(cliente.id)}  
+                                onClick={() => deleteCliente(cliente.id)}  
                             >   <FiTrash size={18} color='#fff' />
                             </button>
                         </article>
@@ -68,7 +69,7 @@ export default function SearchButton ({fecharTudo, excluirCliente, handleInputCh
                     <div className=' flex justify-center'>
                         <Button
                             text='Fechar'
-                            onClick={() => {fecharTudo()}}
+                            onClick={() => {closeAll()}}
                         ></Button>
                     </div>
                 </section>

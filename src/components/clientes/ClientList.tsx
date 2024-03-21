@@ -1,30 +1,22 @@
 import React from 'react';
 import Button from '../buttons/Button'
+import { Cliente } from '../../model/Cliente';
 import { FiTrash} from 'react-icons/fi'
 import { TfiPencil } from "react-icons/tfi"
 
-interface Cliente {
-    id: number;
-    nome: string;
-    email: string;
-    telefone: string;
-    coordenada_x: number;
-    coordenada_y: number;
-}
-
 interface ClientListProps {
     clientes: Cliente[]
-    fecharLista: () => void
-    listarClientes: () => void
-    excluirCliente: (id: number) => void
+    closeClienteList: () => void
+    deleteCliente: (id: number) => void
 }
 
-const ClientList: React.FC<ClientListProps> = ({ clientes, fecharLista, listarClientes, excluirCliente }) => {
+const ClientList: React.FC<ClientListProps> = ({ clientes, closeClienteList, deleteCliente }) => {
 
     return (
         <div className='w-full flex justify-center px-4 bg-gray-300'>
-            <main className='my-10 w-full md:max-w-2xl'>
+            <main className='my-4 w-full md:max-w-2xl'>
                 <section className="flex flex-col gap-4 ">
+                <h2 className='text-4xl font-medium'>Listagem de Clientes</h2>
                     {clientes.map(cliente => (
                         <article 
                             className="w-full flex bg-white rounded p-2 relative hover:scale-105 duration-300"
@@ -60,7 +52,7 @@ const ClientList: React.FC<ClientListProps> = ({ clientes, fecharLista, listarCl
                             </button>
                             <button 
                                 className='bg-red-500 w-7 h-7 flex items-center justify-center rounded-lg absolute right-0 -top-3 hover:scale-110 duration-300'
-                                onClick={() => excluirCliente(cliente.id)}  
+                                onClick={() => deleteCliente(cliente.id)}  
                             >   <FiTrash size={18} color='#fff' />
                             </button>
                         </article>
@@ -68,7 +60,7 @@ const ClientList: React.FC<ClientListProps> = ({ clientes, fecharLista, listarCl
                     <div className=' flex justify-center'>
                         <Button
                             text='Fechar'
-                            onClick={fecharLista}
+                            onClick={closeClienteList}
                         ></Button>
                     </div>
                 </section>

@@ -11,8 +11,12 @@ export function Home() {
     const [exibirRota, setExibirRota] = useState(false);
     const [exibirFormulario, setExibirFormulario] = useState(false);
     const [distancia, setDistancia] = useState(0);
+    const [idCliente, setIdCliente] = useState('');
+    const [cliente, setCliente] = useState<any>(null);
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const cadastrarCliente = async (clientes: any) => {
+
+    const createCliente = async (clientes: any) => {
         try {
             await fetch('http://localhost:3001/clientes', {
                 method: 'POST',
@@ -22,13 +26,13 @@ export function Home() {
                 body: JSON.stringify(clientes),
             });
 
-            listarClientes();
+            getClienteList();
         } catch (error) {
             console.error('Erro ao cadastrar cliente:', error);
         }
     };
 
-    const listarClientes = async () => {
+    const getClienteList = async () => {
         try {
             const response = await fetch('http://localhost:3001/clientes');
             const data = await response.json();
@@ -36,7 +40,8 @@ export function Home() {
             setExibirLista(true);
             setExibirRota(false);
             setExibirFormulario(false);
-            fecharCliente()
+            closeCliente()
+            setErrorMessage('')
         } catch (error) {
             console.error('Erro ao buscar clientes:', error);
         }
@@ -44,7 +49,7 @@ export function Home() {
 
     
 
-    const exibirRotaFunc = async () => {
+    const showClienteRoute = async () => {
         try {
             const response = await fetch('http://localhost:3001/calcular-rota');
             const data = await response.json();
@@ -54,71 +59,14 @@ export function Home() {
             setExibirRota(true);
             setExibirLista(false);
             setExibirFormulario(false);
-            fecharCliente()
+            closeCliente()
+            setErrorMessage('')
         } catch (error) {
             console.error('Erro ao buscar rota:', error);
         }
     };
 
-    const excluirCliente = async (id: number) => {
-        try {
-            await fetch(`http://localhost:3001/clientes/${id}`, {
-                method: 'DELETE',
-            });
-            fecharCliente()
-            listarClientes();
-        } catch (error) {
-            console.error('Erro ao excluir cliente:', error);
-        }
-    };
-
-    const fecharFormulario = () => {
-        setExibirFormulario(false);
-    }
-
-    const fecharLista = () => {
-        setExibirLista(false);
-    }
-
-    const fecharRota = () => {
-        setExibirRota(false);
-    }
-
-    function exibirForm () {
-        setExibirFormulario(true);
-        setExibirRota(false);
-        setExibirLista(false);
-        setCliente(false)
-        fecharCliente()
-    }
-
-    function fecharTudo () {
-        setExibirFormulario(false);
-        setExibirRota(false);
-        setExibirLista(false);
-        fecharCliente()
-    }    
-
-    const [idCliente, setIdCliente] = useState('');
-    const [cliente, setCliente] = useState<any>(null);
-    const [error, setError] = useState('');
-
-    const handleInputChange = (event: any) => {
-        setIdCliente(event.target.value); // Captura o valor do ID inserido no input
-    };
-
-    const handleKeyDown = (event: any) => {
-        if (event.key === 'Enter') {
-            buscarCliente();
-            fecharTudo();
-        }
-    }; 
-
-    function fecharCliente () {
-        setCliente(false)
-    }
-
-    async function buscarCliente() {
+    async function getCliente() {
         
         try {
 
@@ -128,16 +76,71 @@ export function Home() {
 
             const response = await fetch(`http://localhost:3001/clientes/${idCliente}`);
             if (!response.ok) {
-                throw new Error('Cliente não encontrado');
+                throw new Error('Cliente não encontrado!');
             }
             const data = await response.json();
-            setCliente(data); // Atualiza o estado com os dados do cliente encontrado
-            setError('');
+            setCliente(data); 
+            setErrorMessage('Cliente encontrado!');
 
-        } catch (err){
-            throw new Error(`testando ${err}`);
+        } catch (err: any) {
+            setErrorMessage(` ${err.message}`);
         }
         
+    }
+
+    const deleteCliente = async (id: number) => {
+        try {
+            await fetch(`http://localhost:3001/clientes/${id}`, {
+                method: 'DELETE',
+            });
+            closeCliente()
+            getClienteList();
+        } catch (error) {
+            console.error('Erro ao excluir cliente:', error);
+        }
+    };
+
+    const closeForm = () => {
+        setExibirFormulario(false);
+    }
+
+    const closeClienteList = () => {
+        setExibirLista(false);
+    }
+
+    const closeClientesRoute = () => {
+        setExibirRota(false);
+    }
+
+    function showClienteForm () {
+        setExibirFormulario(true);
+        setExibirRota(false);
+        setExibirLista(false);
+        setCliente(false)
+        closeCliente()
+        setErrorMessage('')
+    }
+
+    function closeAll () {
+        setExibirFormulario(false);
+        setExibirRota(false);
+        setExibirLista(false);
+        closeCliente()
+    }    
+    
+    const handleInputChange = (event: any) => {
+        setIdCliente(event.target.value); 
+    };
+
+    const handleKeyDown = (event: any) => {
+        if (event.key === 'Enter') {
+            getCliente();
+            closeAll();
+        }
+    }; 
+
+    function closeCliente () {
+        setCliente(false)
     }
 
     return (
@@ -146,23 +149,24 @@ export function Home() {
                 <DropdownButton
                     text="Menu"
                     options={[
-                        { label: 'Cadastrar Cliente', onClick: exibirForm },
-                        { label: 'Listar Clientes', onClick: listarClientes },
-                        { label: 'Calcular Rota', onClick: exibirRotaFunc },
+                        { label: 'Cadastrar Cliente', onClick: showClienteForm },
+                        { label: 'Listar Clientes', onClick: getClienteList },
+                        { label: 'Calcular Rota', onClick: showClienteRoute },
                     ]}
                 />
                 <h1 className="text-3xl font-bold text-color-aqua p-6">Gerenciador de Clientes</h1>
                 <SearchButton 
-                    fecharTudo={fecharTudo} 
-                    excluirCliente={excluirCliente}
+                    closeAll={closeAll} 
+                    deleteCliente={deleteCliente}
                     handleKeyDown={handleKeyDown}
                     handleInputChange={handleInputChange}
                     cliente={cliente}
                 />
             </div>
-            {exibirLista && <ClientList clientes={clientes} fecharLista={fecharLista} listarClientes={listarClientes} excluirCliente={excluirCliente} />}
-            {exibirRota && <ClientRoute clientes={clientes} fecharRota={fecharRota} distancia={distancia} />}
-            {exibirFormulario && <ClientForm cadastrarCliente={cadastrarCliente} fecharFormulario={fecharFormulario} />}
+            {errorMessage && <h2 className='text-4xl font-medium flex justify-center mt-4'>{errorMessage}</h2>}
+            {exibirLista && <ClientList clientes={clientes} closeClienteList={closeClienteList} deleteCliente={deleteCliente} />}
+            {exibirRota && <ClientRoute clientes={clientes} closeClientesRoute={closeClientesRoute} distancia={distancia} />}
+            {exibirFormulario && <ClientForm createCliente={createCliente} closeForm={closeForm} />}
         </div>
     );
 }
