@@ -21,7 +21,7 @@ export default function SearchButton ({closeAll, deleteCliente, handleInputChang
                 type="text"
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
-                placeholder="Buscar cliente"
+                placeholder="Buscar cliente por ID"
             />
 
             {cliente && (

@@ -17,7 +17,7 @@ const ClientRoute: React.FC<ClientRouteProps> = ({ clientes, distancia, closeCli
                     <p className="text-2xl font-semibold">Distância: {distancia.toFixed(2)}</p>
                 </div>
                 <section className="flex flex-col gap-4 ">
-                    {clientes.map(cliente => (
+                    {clientes.map((cliente, index) => (
                         <article 
                             className="w-full flex bg-white rounded p-2 relative hover:scale-105 duration-300"
                             key={cliente.id}
@@ -25,20 +25,17 @@ const ClientRoute: React.FC<ClientRouteProps> = ({ clientes, distancia, closeCli
 
                             <div className='w-1/2'>
                                 <p className=''>
-                                    <span className='font-bold'>Id:</span> {cliente.id}
+                                    <span className='font-bold'>Ordem:</span> {index === 0 ? "Partida" : index === clientes.length - 1 ? "Chegada" : index}
                                 </p>
                                 <p>
                                     <span className='font-bold'>Nome:</span> {cliente.nome}
                                 </p>
                                 <p>
-                                    <span className='font-bold'>Email:</span> {cliente.email}
+                                    <span className='font-bold'>Telefone:</span> {cliente.telefone}
                                 </p>
                             </div>
 
                             <div>
-                                <p>
-                                    <span className='font-bold'>Telefone:</span> {cliente.telefone}
-                                </p>
                                 <p>
                                     <span className='font-bold'>Coordenada X:</span> {cliente.coordenada_x}
                                 </p>
