@@ -15,13 +15,27 @@ const ClienteForm: React.FC<ClienteFormProps> = ({ createCliente, clienteAtual, 
     const [coordenada_x, setCoordenada_x] = useState(clienteAtual ? clienteAtual.coordenada_x : '');
     const [coordenada_y, setCoordenada_y] = useState(clienteAtual ? clienteAtual.coordenada_y : '');
     const [active, setActive] = useState(!!clienteAtual);
+    const [emailError, setEmailError] = useState('')
 
     const handleDisplayForm = () => {
         setActive(!active);
     };
 
+        // Função para validar o email
+    const validateEmail = (email: string): boolean => {
+        // Expressão regular para validar o formato do email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
     const cadastrar = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
+            // Verifica se o email é um email válido
+        if (!validateEmail(email)) {
+            setEmailError('O email fornecido não é válido.');
+            return; // Evita que o formulário seja enviado se o email não for válido
+        }
 
         const novoCliente: Cliente = {
             id: 0,
@@ -61,7 +75,10 @@ const ClienteForm: React.FC<ClienteFormProps> = ({ createCliente, clienteAtual, 
                         <label className='font-bold text-lg' htmlFor="nome">Nome:</label>
                         <input className='w-full mb-2 p-2 rounded border border-black ' id="nome" type="text" placeholder="Nome" required value={nome} onChange={(e) => setNome(e.target.value)} />
 
-                        <label className='font-bold text-lg' htmlFor="email">Email:</label>
+                        <div className='flex items-center'>
+                            <label className='font-bold text-lg' htmlFor="email">Email:</label>
+                            {emailError && <span className='ps-2 text-red-600'>Email inválido!</span>}
+                        </div>
                         <input className='w-full mb-3 p-2 rounded border border-black' id="email" type="text" placeholder="Email" required value={email} onChange={(e) => setEmail(e.target.value)} />
 
                         <label className='font-bold text-lg' htmlFor="telefone">Telefone:</label>
