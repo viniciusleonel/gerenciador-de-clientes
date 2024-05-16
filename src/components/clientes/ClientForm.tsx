@@ -61,10 +61,10 @@ const ClienteForm: React.FC<ClienteFormProps> = ({ createCliente, clienteAtual, 
         handleDisplayForm();
     };
 
-    const cancelarSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        event.preventDefault();
-        handleDisplayForm();
-    };
+    // const cancelarSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    //     event.preventDefault();
+    //     handleDisplayForm();
+    // };
 
     return (
         <div className="w-full flex justify-center px-4">

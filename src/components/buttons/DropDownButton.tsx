@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Button from '../buttons/Button'
 
 interface DropdownButtonProps {
     text: string;

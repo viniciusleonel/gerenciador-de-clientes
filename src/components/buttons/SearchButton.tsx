@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import Button from '../buttons/Button'
 import { Cliente } from '../../model/Cliente';
 import { FiTrash} from 'react-icons/fi'
